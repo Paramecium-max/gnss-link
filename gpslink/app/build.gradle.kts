@@ -25,6 +25,18 @@ android {
         }
     }
 
+    // 按 ABI 拆分：64 位 arm64-v8a、32 位 armeabi-v7a，外加通用包兜底。
+    // 本项目为纯 Kotlin，无 native so；拆分后各包内容一致，仅 android:abi 声明不同，
+    // 便于应用市场/用户按架构选择，也方便 CI 分别产出。
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            include("arm64-v8a", "armeabi-v7a")
+            isUniversalApk = true
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

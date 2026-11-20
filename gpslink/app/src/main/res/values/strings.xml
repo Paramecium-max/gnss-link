@@ -2,7 +2,26 @@
 <resources>
     <string name="app_name">GNSS Link</string>
     <string name="subtitle">局域网 GPS 共享 · 模拟定位</string>
+    <string name="theme_toggle">切换主题</string>
 
+    <!-- 导航与页面 -->
+    <string name="nav_link">连接</string>
+    <string name="nav_sat">卫星</string>
+    <string name="nav_settings">设置</string>
+    <string name="page_link_title">定位共享</string>
+    <string name="page_link_subtitle">将手机定位共享到平板或车机。</string>
+    <string name="page_sat_title">卫星观测</string>
+    <string name="page_sat_subtitle">本机 GNSS 信号</string>
+    <string name="page_settings_title">偏好设置</string>
+    <string name="page_settings_subtitle">连接参数与设备权限</string>
+
+    <!-- 角色 -->
+    <string name="role_send">共享定位</string>
+    <string name="role_receive">接收定位</string>
+    <string name="role_desc_title">共享此设备的位置</string>
+    <string name="role_desc">两台设备连接同一 Wi-Fi 或热点，并使用相同房间码。</string>
+
+    <!-- 参数 -->
     <string name="hint_sid">房间码（两端必须一致）</string>
     <string name="hint_port">UDP 端口</string>
     <string name="hint_host">接收端 IP（留空自动发现）</string>
@@ -11,38 +30,57 @@
     <string name="btn_receive">开始接收</string>
     <string name="btn_stop">停止</string>
 
-    <string name="status_idle">○ 未运行</string>
+    <string name="status_idle">未启动</string>
     <string name="mock_title">接收端需要「模拟位置」授权</string>
     <string name="mock_desc">打开开发者选项 → 选择模拟位置信息应用 → 选择本应用。系统不允许应用自行开启，只能手动指定一次。</string>
     <string name="mock_action">去设置</string>
 
-    <string name="check_title">注入前置条件</string>
-    <string name="check_again">重新检测</string>
+    <string name="check_title">设备权限</string>
+    <string name="check_again">重新检查</string>
 
     <string name="mode_title">传输方式</string>
     <string name="mode_lan">局域网</string>
     <string name="mode_bt">蓝牙</string>
     <string name="bt_none">未选择设备</string>
     <string name="bt_pick">选择设备</string>
-    <string name="probe_action">检测本机上限</string>
+    <string name="probe_action">检测频率</string>
 
-    <string name="rate_title">频率设置</string>
-    <string name="rate_sender_label">采样频率（发送端 GPS 采集）</string>
-    <string name="rate_receiver_label">注入频率（接收端写入系统位置）</string>
-    <string name="rate_hint">采样：1 Hz 和真机 GPS 一致；部分机型硬件只支持 1 Hz，实际以上方「刷新」为准。注入：高于采样时，接收端会按 speed / bearing 在两次帧之间外推补点，让蓝点连续移动。</string>
+    <string name="connection_title">连接设置</string>
+    <string name="rate_title">定位频率</string>
+    <string name="rate_sender_label">发送采样（发送端 GPS 采集）</string>
+    <string name="rate_receiver_label">接收注入（接收端写入系统位置）</string>
+    <string name="rate_hint">采样：1 Hz 和真机 GPS 一致；部分机型硬件只支持 1 Hz。注入：高于采样时，接收端会按 speed / bearing 在两次帧之间外推补点，让蓝点连续移动。</string>
+
+    <string name="probe_title">采样能力</string>
+    <string name="probe_hint">保持室外或窗边，检测约需 12 秒。</string>
 
     <string name="sat_title">卫星信号</string>
+    <string name="sat_empty_count">可见 0 · 定位 0</string>
+    <string name="sat_hint">开启系统定位，到室外或窗边接收信号。</string>
 
-    <string name="detail_title">定位数据</string>
-    <string name="d_latlon">坐标</string>
-    <string name="d_accuracy">精度</string>
-    <string name="d_altitude">高度</string>
-    <string name="d_speed">速度</string>
-    <string name="d_bearing">运动方向</string>
+    <!-- 定位实况 -->
+    <string name="live_title">定位实况</string>
+    <string name="live_waiting">等待定位</string>
+    <string name="live_active">实时定位</string>
+    <string name="live_latlon_hint">启动后显示实时经纬度</string>
+    <string name="live_wait_first">等待第一帧定位数据</string>
+    <string name="d_accuracy">定位精度</string>
+    <string name="d_speed">移动速度</string>
+    <string name="d_altitude">海拔高度</string>
+    <string name="d_bearing">航向</string>
     <string name="d_age">源点年龄</string>
-    <string name="verify_title">定位校验</string>
-    <string name="verify_hint">「系统回读」是本机从系统拿到的当前定位，也就是高德 / 百度 / Google 地图拿到的同一个值。它和注入值一致且 mock=true，说明确实在用发送端的数据。最直观的验证：拿着 A 走开 20 米，B 的坐标应该跟着变，而 B 自己没动。</string>
-    <string name="log_title">运行日志</string>
 
-    <string name="tip">用法：A 手机点「开始共享」，B 手机点「开始接收」。两台设备需在同一 Wi-Fi 下，房间码一致。B 端授权后，高德 / 百度 / Google 地图会直接把 A 的位置当作自己的位置。</string>
+    <!-- 链路状态 -->
+    <string name="link_title">链路状态</string>
+    <string name="link_mode_default">UDP / 7007</string>
+    <string name="link_rate_unit">帧 / 秒</string>
+    <string name="link_rtt_unit">往返延迟 ms</string>
+    <string name="link_pkts_unit">接收数据包</string>
+
+    <string name="verify_title">定位校验</string>
+    <string name="verify_hint">「系统回读」是本机从系统拿到的当前定位，也就是地图 App 拿到的同一个值。它和注入值一致且 mock=true，说明确实在用发送端的数据。</string>
+    <string name="log_title">运行日志</string>
+    <string name="log_empty">暂无日志</string>
+
+    <string name="tip">用法：A 手机点「开始共享」，B 手机点「开始接收」。两台设备需在同一 Wi-Fi 下，房间码一致。B 端授权后，地图 App 会直接把 A 的位置当作自己的位置。</string>
 </resources>

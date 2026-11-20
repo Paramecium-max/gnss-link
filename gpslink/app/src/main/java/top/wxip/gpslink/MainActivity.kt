@@ -14,12 +14,15 @@ import android.os.PowerManager
 import android.os.SystemClock
 import android.provider.Settings
 import android.view.View
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
@@ -35,7 +38,7 @@ import top.wxip.gpslink.core.RateProbe
 import top.wxip.gpslink.core.Role
 import top.wxip.gpslink.core.SatInfo
 import top.wxip.gpslink.core.SatelliteMonitor
-import top.wxip.gpslink.ui.SatelliteBarsView
+import top.wxip.gpslink.ui.SatelliteSkyView
 import top.wxip.gpslink.mock.MockLocationEngine
 import top.wxip.gpslink.service.ReceiveService
 import top.wxip.gpslink.service.SendService
@@ -73,7 +76,7 @@ class MainActivity : AppCompatActivity(), LinkBus.Observer {
     private lateinit var btnPickBt: MaterialButton
     private lateinit var btnProbe: MaterialButton
     private lateinit var tvProbeResult: TextView
-    private lateinit var satView: SatelliteBarsView
+    private lateinit var satView: SatelliteSkyView
     private lateinit var tvSatSummary: TextView
     private lateinit var tvSatLegend: TextView
     private lateinit var cardDetail: MaterialCardView
@@ -83,6 +86,31 @@ class MainActivity : AppCompatActivity(), LinkBus.Observer {
     private lateinit var tvDSpeed: TextView
     private lateinit var tvDBearing: TextView
     private lateinit var tvDAge: TextView
+
+    // 新 UI：底部导航
+    private lateinit var pageLink: View
+    private lateinit var pageSat: View
+    private lateinit var pageSettings: View
+    private lateinit var navLink: View
+    private lateinit var navSat: View
+    private lateinit var navSettings: View
+    private lateinit var navLinkIcon: ImageView
+    private lateinit var navSatIcon: ImageView
+    private lateinit var navSettingsIcon: ImageView
+    private lateinit var navLinkText: TextView
+    private lateinit var navSatText: TextView
+    private lateinit var navSettingsText: TextView
+    private lateinit var btnTheme: ImageButton
+
+    // 新 UI：状态 / 链路 / 实况
+    private lateinit var tvLiveState: TextView
+    private lateinit var tvLinkMode: TextView
+    private lateinit var tvLinkRate: TextView
+    private lateinit var tvLinkRtt: TextView
+    private lateinit var tvLinkPkts: TextView
+    private lateinit var groupRole: MaterialButtonToggleGroup
+    private lateinit var btnRoleSend: MaterialButton
+    private lateinit var btnRoleReceive: MaterialButton
 
     private val engine by lazy { MockLocationEngine(this) }
     private val rateProbe by lazy { RateProbe(this) }
@@ -148,6 +176,33 @@ class MainActivity : AppCompatActivity(), LinkBus.Observer {
         satView = findViewById(R.id.sat_view)
         tvSatSummary = findViewById(R.id.tv_sat_summary)
         tvSatLegend = findViewById(R.id.tv_sat_legend)
+
+        // 新 UI 绑定
+        pageLink = findViewById(R.id.page_link)
+        pageSat = findViewById(R.id.page_sat)
+        pageSettings = findViewById(R.id.page_settings)
+        navLink = findViewById(R.id.nav_link)
+        navSat = findViewById(R.id.nav_sat)
+        navSettings = findViewById(R.id.nav_settings)
+        navLinkIcon = findViewById(R.id.nav_link_icon)
+        navSatIcon = findViewById(R.id.nav_sat_icon)
+        navSettingsIcon = findViewById(R.id.nav_settings_icon)
+        navLinkText = findViewById(R.id.nav_link_text)
+        navSatText = findViewById(R.id.nav_sat_text)
+        navSettingsText = findViewById(R.id.nav_settings_text)
+        btnTheme = findViewById(R.id.btn_theme)
+        tvLiveState = findViewById(R.id.tv_live_state)
+        tvLinkMode = findViewById(R.id.tv_link_mode)
+        tvLinkRate = findViewById(R.id.tv_link_rate)
+        tvLinkRtt = findViewById(R.id.tv_link_rtt)
+        tvLinkPkts = findViewById(R.id.tv_link_pkts)
+        groupRole = findViewById(R.id.group_role)
+        btnRoleSend = findViewById(R.id.btn_role_send)
+        btnRoleReceive = findViewById(R.id.btn_role_receive)
+
+        setupNavigation()
+        setupTheme()
+        setupRole()
 
         val cfg = Prefs.loadSend(this)
         etSid.setText(cfg.sid)
@@ -220,6 +275,71 @@ class MainActivity : AppCompatActivity(), LinkBus.Observer {
         refreshChecks()
     }
 
+    // ---------------------------------------------------------------- 导航 / 主题 / 角色
+
+    private fun setupNavigation() {
+        navLink.setOnClickListener { selectPage(0) }
+        navSat.setOnClickListener { selectPage(1) }
+        navSettings.setOnClickListener { selectPage(2) }
+        selectPage(0)
+    }
+
+    private fun selectPage(index: Int) {
+        pageLink.visibility = if (index == 0) View.VISIBLE else View.GONE
+        pageSat.visibility = if (index == 1) View.VISIBLE else View.GONE
+        pageSettings.visibility = if (index == 2) View.VISIBLE else View.GONE
+
+        val items = listOf(
+            Triple(navLink, navLinkIcon, navLinkText),
+            Triple(navSat, navSatIcon, navSatText),
+            Triple(navSettings, navSettingsIcon, navSettingsText)
+        )
+        val icons = listOf(
+            R.drawable.ic_nav_link to R.drawable.ic_nav_link_active,
+            R.drawable.ic_nav_sat to R.drawable.ic_nav_sat_active,
+            R.drawable.ic_nav_settings to R.drawable.ic_nav_settings_active
+        )
+        items.forEachIndexed { i, (container, icon, text) ->
+            val active = i == index
+            container.isSelected = active
+            text.isSelected = active
+            icon.setImageResource(if (active) icons[i].second else icons[i].first)
+        }
+        findViewById<android.widget.ScrollView>(R.id.scroll).scrollTo(0, 0)
+    }
+
+    private fun setupTheme() {
+        updateThemeIcon()
+        btnTheme.setOnClickListener {
+            val dark = (resources.configuration.uiMode and
+                    android.content.res.Configuration.UI_MODE_NIGHT_MASK) ==
+                    android.content.res.Configuration.UI_MODE_NIGHT_YES
+            AppCompatDelegate.setDefaultNightMode(
+                if (dark) AppCompatDelegate.MODE_NIGHT_NO
+                else AppCompatDelegate.MODE_NIGHT_YES
+            )
+        }
+    }
+
+    private fun updateThemeIcon() {
+        val dark = (resources.configuration.uiMode and
+                android.content.res.Configuration.UI_MODE_NIGHT_MASK) ==
+                android.content.res.Configuration.UI_MODE_NIGHT_YES
+        btnTheme.setImageResource(if (dark) R.drawable.ic_sun else R.drawable.ic_moon)
+    }
+
+    private fun setupRole() {
+        groupRole.check(R.id.btn_role_send)
+        btnSend.visibility = View.VISIBLE
+        btnReceive.visibility = View.GONE
+        groupRole.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (!isChecked) return@addOnButtonCheckedListener
+            val sending = checkedId == R.id.btn_role_send
+            btnSend.visibility = if (sending) View.VISIBLE else View.GONE
+            btnReceive.visibility = if (sending) View.GONE else View.VISIBLE
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         refreshChecks()
@@ -271,12 +391,8 @@ class MainActivity : AppCompatActivity(), LinkBus.Observer {
         satView.setSatellites(list)
 
         if (list.isEmpty()) {
-            tvSatSummary.text = if (st.running && st.role == Role.RECEIVER) {
-                "等待发送端的卫星数据…"
-            } else {
-                "等待卫星数据…请到室外或窗边"
-            }
-            tvSatLegend.text = ""
+            tvSatSummary.text = "可见 0 · 定位 0"
+            tvSatLegend.text = getString(R.string.sat_hint)
             return
         }
 
@@ -288,17 +404,14 @@ class MainActivity : AppCompatActivity(), LinkBus.Observer {
 
         val freqs = Gnss.distinctFreqs(list)
         val bandLabel = if (freqs.isEmpty()) "频段未知" else Gnss.bandCountLabel(freqs.size)
-        val head = if (fromRemote) "来自 $remoteFrom" else "本机"
+        val head = if (fromRemote) "来自 $remoteFrom · " else ""
 
-        tvSatSummary.text = "$head · 可见 ${list.size} · 定位 $used · $bandLabel\n$parts"
-
-        tvSatLegend.text = if (freqs.isEmpty()) {
-            "本机未上报载波频率（Android 11 以下不支持）"
-        } else {
-            freqs.joinToString("  +  ") {
-                String.format(Locale.US, "%s %.2f MHz", Gnss.band(it), it / 1e6f)
+        tvSatSummary.text = "可见 ${list.size} · 定位 $used"
+        tvSatLegend.text = "$head$parts\n$bandLabel" + if (freqs.isNotEmpty()) {
+            " · " + freqs.joinToString(" + ") {
+                String.format(Locale.US, "%s", Gnss.band(it))
             }
-        }
+        } else ""
     }
 
     // ---------------------------------------------------------------- 传输方式 / 蓝牙
@@ -543,7 +656,16 @@ class MainActivity : AppCompatActivity(), LinkBus.Observer {
             Role.RECEIVER -> "接收端"
             Role.NONE -> "未运行"
         }
-        tvStatus.text = if (status.running) "● $roleText 运行中" else getString(R.string.status_idle)
+        tvStatus.text = if (status.running) roleText else getString(R.string.status_idle)
+
+        // 链路状态卡片
+        val port = port()
+        tvLinkMode.text = if (useBt) "蓝牙 / RFCOMM" else "UDP / $port"
+        tvLinkRate.text = if (status.running) String.format(Locale.US, "%.0f", status.rateHz) else "—"
+        tvLinkRtt.text = if (status.running && status.rttMs >= 0) status.rttMs.toString() else "—"
+        tvLinkPkts.text = (if (status.running) {
+            if (status.role == Role.SENDER) status.txCount else status.rxCount
+        } else 0).toString()
 
         val lines = mutableListOf<String>()
         if (status.localIp.isNotBlank()) lines += "本机 IP：${status.localIp}"
@@ -587,8 +709,12 @@ class MainActivity : AppCompatActivity(), LinkBus.Observer {
     private fun updateDetail(status: LinkStatus) {
         val show = status.running && status.fixCount > 0
         cardDetail.visibility = if (show) View.VISIBLE else View.GONE
-        if (!show) return
+        if (!show) {
+            tvLiveState.setText(R.string.live_waiting)
+            return
+        }
 
+        tvLiveState.setText(R.string.live_active)
         tvDLatLon.text = String.format(Locale.US, "%.6f, %.6f", status.lat, status.lon)
 
         tvDAccuracy.text = if (status.accuracy > 0f) {
@@ -597,20 +723,18 @@ class MainActivity : AppCompatActivity(), LinkBus.Observer {
 
         tvDAltitude.text = String.format(Locale.US, "%.1f m", status.altitude)
 
-        tvDSpeed.text = String.format(
-            Locale.US, "%.2f m/s（%.1f km/h）", status.speed, status.speed * 3.6f
-        )
+        tvDSpeed.text = String.format(Locale.US, "%.1f km/h", status.speed * 3.6f)
 
         tvDBearing.text = if (status.bearing >= 0f) {
             String.format(Locale.US, "%.0f° %s", status.bearing, compass(status.bearing))
         } else "—"
 
         tvDAge.text = when {
-            status.fixAgeMs < 0 -> "—"
+            status.fixAgeMs < 0 -> "源点年龄 —"
             status.fixAgeMs > 3000 -> String.format(
-                Locale.US, "%.1f s（数据偏旧）", status.fixAgeMs / 1000.0
+                Locale.US, "源点年龄 %.1f s（数据偏旧）", status.fixAgeMs / 1000.0
             )
-            else -> String.format(Locale.US, "%.1f s", status.fixAgeMs / 1000.0)
+            else -> String.format(Locale.US, "源点年龄 %.1f s", status.fixAgeMs / 1000.0)
         }
     }
 

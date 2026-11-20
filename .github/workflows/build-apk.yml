@@ -1,0 +1,72 @@
+name: Build APK (32-bit & 64-bit)
+
+on:
+  push:
+    branches: [ main, master ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: 设置 Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: 安装 Android SDK 组件
+        run: sdkmanager "platforms;android-34" "build-tools;34.0.0"
+
+      - name: 设置 Gradle 缓存
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: 赋予 Gradle 执行权限
+        working-directory: ./gpslink
+        run: chmod +x ./gradlew
+
+      - name: 编译 Release APK（含 32/64/通用）
+        working-directory: ./gpslink
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: 重命名产物
+        working-directory: ./gpslink/app/build/outputs/apk/release
+        run: |
+          for f in *arm64-v8a*.apk;  do [ -e "$f" ] && mv "$f" gnss-link-64bit-arm64-v8a.apk; done
+          for f in *armeabi-v7a*.apk; do [ -e "$f" ] && mv "$f" gnss-link-32bit-armeabi-v7a.apk; done
+          for f in *universal*.apk;   do [ -e "$f" ] && mv "$f" gnss-link-universal.apk; done
+          ls -lh *.apk
+
+      - name: 上传 64 位 APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: gnss-link-64bit-arm64-v8a
+          path: gpslink/app/build/outputs/apk/release/gnss-link-64bit-arm64-v8a.apk
+          if-no-files-found: error
+
+      - name: 上传 32 位 APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: gnss-link-32bit-armeabi-v7a
+          path: gpslink/app/build/outputs/apk/release/gnss-link-32bit-armeabi-v7a.apk
+          if-no-files-found: error
+
+      - name: 上传通用 APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: gnss-link-universal
+          path: gpslink/app/build/outputs/apk/release/gnss-link-universal.apk
+          if-no-files-found: error
