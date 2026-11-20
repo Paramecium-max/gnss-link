@@ -15,6 +15,19 @@ android {
         versionName = "1.1.0"
     }
 
+    // Release 签名。未签名的 APK 无法安装（系统会报"安装包异常/解析失败"）。
+    // 优先读环境变量（GitHub Actions Secrets），本地回退到仓库内 keystore。
+    signingConfigs {
+        create("release") {
+            val ksPath = System.getenv("SIGNING_KEY_STORE_PATH")
+                ?: "../keystore/gpslink.jks"
+            storeFile = file(ksPath)
+            storePassword = System.getenv("SIGNING_STORE_PASSWORD") ?: "gpslink2026"
+            keyAlias = System.getenv("SIGNING_KEY_ALIAS") ?: "gpslink"
+            keyPassword = System.getenv("SIGNING_KEY_PASSWORD") ?: "gpslink2026"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -22,6 +35,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 

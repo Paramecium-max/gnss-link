@@ -34,13 +34,40 @@ jobs:
       - name: 设置 Gradle 缓存
         uses: gradle/actions/setup-gradle@v6
 
+      - name: 还原签名 keystore
+        working-directory: ./gpslink
+        env:
+          SIGNING_KEY_BASE64: ${{ secrets.SIGNING_KEY_BASE64 }}
+        run: |
+          mkdir -p keystore
+          echo "$SIGNING_KEY_BASE64" | base64 -d > keystore/gpslink.jks
+          ls -lh keystore/gpslink.jks
+
       - name: 赋予 Gradle 执行权限
         working-directory: ./gpslink
         run: chmod +x ./gradlew
 
       - name: 编译 Release APK（含 32/64/通用）
         working-directory: ./gpslink
+        env:
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         run: ./gradlew assembleRelease --no-daemon
+
+      - name: 校验 APK 已签名
+        working-directory: ./gpslink/app/build/outputs/apk/release
+        run: |
+          APKSIGNER=$(ls $ANDROID_HOME/build-tools/*/apksigner | head -1)
+          fail=0
+          for f in *.apk; do
+            if "$APKSIGNER" verify "$f" > /dev/null 2>&1; then
+              echo "已签名: $f"
+            else
+              echo "未签名: $f"; fail=1
+            fi
+          done
+          exit $fail
 
       - name: 重命名产物
         working-directory: ./gpslink/app/build/outputs/apk/release
