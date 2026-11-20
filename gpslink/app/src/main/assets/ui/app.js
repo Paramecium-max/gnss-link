@@ -190,6 +190,11 @@ function renderStatus(s) {
     ? "系统回读不可用，请检查模拟位置授权"
     : `系统回读偏差 ${number(s.verifyDeltaM)} m · ${s.verifyMock ? "已标记模拟位置" : "未标记模拟位置"}`;
 }
+// SBAS augments multiple satellite systems and has no single national flag.
+const satelliteFlags = {
+  北斗: "🇨🇳", GPS: "🇺🇸", GLO: "🇷🇺", GAL: "🇪🇺",
+  QZS: "🇯🇵", IRN: "🇮🇳", SBS: "🌐",
+};
 function renderSatellites(payload) {
   const { items, source } = payload;
   $("sat-source").textContent = source;
@@ -218,9 +223,19 @@ function renderSatellites(payload) {
     const strength = document.createElement("span");
     strength.textContent = number(sat.cn0, 0);
     const column = document.createElement("i");
-    column.style.height = `${Math.max(2, Math.min(60, sat.cn0)) * 2}px`;
+    column.style.height = `${Math.max(2, Math.min(60, sat.cn0)) * 3}px`;
     const label = document.createElement("span");
-    label.textContent = `${sat.name}${sat.svid}`;
+    label.className = "sat-label";
+    const flag = document.createElement("span");
+    flag.className = "sat-flag";
+    flag.textContent = satelliteFlags[sat.name] || "🛰️";
+    flag.setAttribute("aria-hidden", "true");
+    const identifier = document.createElement("span");
+    identifier.textContent = sat.svid;
+    label.append(flag, identifier);
+    bar.title = `${sat.name} ${sat.svid} · ${number(sat.cn0)} dB-Hz`;
+    bar.setAttribute("role", "img");
+    bar.setAttribute("aria-label", `${sat.name}卫星 ${sat.svid}，信号强度 ${number(sat.cn0)} dB-Hz${sat.used ? "，参与定位" : ""}`);
     bar.append(strength, column, label);
     $("sat-bars").append(bar);
   }
