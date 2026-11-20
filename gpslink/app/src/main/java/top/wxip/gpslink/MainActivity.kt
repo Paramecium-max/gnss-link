@@ -68,6 +68,10 @@ class MainActivity : AppCompatActivity(), LinkBus.Observer {
         setContentView(web)
         web.settings.javaScriptEnabled = true
         web.settings.domStorageEnabled = true
+        web.settings.setSupportZoom(false)
+        web.settings.builtInZoomControls = false
+        web.settings.displayZoomControls = false
+        web.settings.textZoom = 100
         web.settings.allowFileAccess = false
         web.settings.allowContentAccess = false
         web.settings.mixedContentMode = android.webkit.WebSettings.MIXED_CONTENT_NEVER_ALLOW

@@ -534,14 +534,26 @@ output {
   min-height: 90px;
 }
 .sat-bar {
-  min-width: 30px;
-  flex: 0 0 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 48px;
+  flex: 0 0 auto;
+  padding: 0 4px;
   text-align: center;
   font-size: 10px;
   color: var(--label-2);
 }
+.sat-bar > span {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  white-space: nowrap;
+}
 .sat-bar i {
   display: block;
+  width: 24px;
+  flex-shrink: 0;
   background: #7492b366;
   border-radius: 5px 5px 0 0;
   margin: 5px 0;
