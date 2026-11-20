@@ -8,11 +8,11 @@
         android:fillColor="@android:color/transparent"
         android:strokeColor="@color/text_secondary"
         android:strokeWidth="1.8"
-        android:strokeLinecap="round" />
+        android:strokeLineCap="round" />
     <path
         android:pathData="M14,11a4,4 0 0,0 -6,-0.43l-2.6,2.6a4,4 0 0,0 5.66,5.66l1.24,-1.23"
         android:fillColor="@android:color/transparent"
         android:strokeColor="@color/text_secondary"
         android:strokeWidth="1.8"
-        android:strokeLinecap="round" />
+        android:strokeLineCap="round" />
 </vector>

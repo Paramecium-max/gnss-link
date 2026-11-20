@@ -141,7 +141,7 @@
                                 android:textSize="13sp"
                                 app:backgroundTint="@color/seg_tint"
                                 app:cornerRadius="22dp"
-                                app:textColor="@color/seg_text" />
+                                android:textColor="@color/seg_text" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btn_role_receive"
@@ -155,7 +155,7 @@
                                 android:textSize="13sp"
                                 app:backgroundTint="@color/seg_tint"
                                 app:cornerRadius="22dp"
-                                app:textColor="@color/seg_text" />
+                                android:textColor="@color/seg_text" />
                         </com.google.android.material.button.MaterialButtonToggleGroup>
 
                         <!-- 设备示意 -->
@@ -905,7 +905,7 @@
                                 android:textSize="13sp"
                                 app:backgroundTint="@color/seg_tint"
                                 app:cornerRadius="22dp"
-                                app:textColor="@color/seg_text" />
+                                android:textColor="@color/seg_text" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btn_mode_bt"
@@ -919,7 +919,7 @@
                                 android:textSize="13sp"
                                 app:backgroundTint="@color/seg_tint"
                                 app:cornerRadius="22dp"
-                                app:textColor="@color/seg_text" />
+                                android:textColor="@color/seg_text" />
                         </com.google.android.material.button.MaterialButtonToggleGroup>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -1044,7 +1044,7 @@
                                 android:textSize="12sp"
                                 app:backgroundTint="@color/seg_tint"
                                 app:cornerRadius="20dp"
-                                app:textColor="@color/seg_text" />
+                                android:textColor="@color/seg_text" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btn_rate_2"
@@ -1058,7 +1058,7 @@
                                 android:textSize="12sp"
                                 app:backgroundTint="@color/seg_tint"
                                 app:cornerRadius="20dp"
-                                app:textColor="@color/seg_text" />
+                                android:textColor="@color/seg_text" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btn_rate_5"
@@ -1072,7 +1072,7 @@
                                 android:textSize="12sp"
                                 app:backgroundTint="@color/seg_tint"
                                 app:cornerRadius="20dp"
-                                app:textColor="@color/seg_text" />
+                                android:textColor="@color/seg_text" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btn_rate_10"
@@ -1086,7 +1086,7 @@
                                 android:textSize="12sp"
                                 app:backgroundTint="@color/seg_tint"
                                 app:cornerRadius="20dp"
-                                app:textColor="@color/seg_text" />
+                                android:textColor="@color/seg_text" />
                         </com.google.android.material.button.MaterialButtonToggleGroup>
 
                         <TextView
@@ -1116,7 +1116,7 @@
                                 android:textSize="12sp"
                                 app:backgroundTint="@color/seg_tint"
                                 app:cornerRadius="20dp"
-                                app:textColor="@color/seg_text" />
+                                android:textColor="@color/seg_text" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btn_inject_5"
@@ -1130,7 +1130,7 @@
                                 android:textSize="12sp"
                                 app:backgroundTint="@color/seg_tint"
                                 app:cornerRadius="20dp"
-                                app:textColor="@color/seg_text" />
+                                android:textColor="@color/seg_text" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btn_inject_10"
@@ -1144,7 +1144,7 @@
                                 android:textSize="12sp"
                                 app:backgroundTint="@color/seg_tint"
                                 app:cornerRadius="20dp"
-                                app:textColor="@color/seg_text" />
+                                android:textColor="@color/seg_text" />
                         </com.google.android.material.button.MaterialButtonToggleGroup>
 
                         <TextView
