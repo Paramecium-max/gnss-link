@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
                     android:text="@string/page_link_title"
-                    style="@style/T.Title" />
+                    style="@style/TextTitle" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -91,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/page_link_subtitle"
-                        style="@style/T.Label" />
+                        style="@style/TextLabel" />
 
                     <TextView
                         android:id="@+id/tv_status"
@@ -324,7 +324,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/live_title"
-                                style="@style/T.Section" />
+                                style="@style/TextSection" />
 
                             <TextView
                                 android:id="@+id/tv_live_state"
@@ -369,14 +369,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/d_accuracy"
-                                    style="@style/T.Label" />
+                                    style="@style/TextLabel" />
 
                                 <TextView
                                     android:id="@+id/tv_d_accuracy"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    style="@style/T.Value"
+                                    style="@style/TextValue"
                                     tools:text="4.2 m" />
                             </LinearLayout>
 
@@ -390,14 +390,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/d_speed"
-                                    style="@style/T.Label" />
+                                    style="@style/TextLabel" />
 
                                 <TextView
                                     android:id="@+id/tv_d_speed"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    style="@style/T.Value"
+                                    style="@style/TextValue"
                                     tools:text="0.0 km/h" />
                             </LinearLayout>
                         </LinearLayout>
@@ -418,14 +418,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/d_altitude"
-                                    style="@style/T.Label" />
+                                    style="@style/TextLabel" />
 
                                 <TextView
                                     android:id="@+id/tv_d_altitude"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    style="@style/T.Value"
+                                    style="@style/TextValue"
                                     tools:text="12.5 m" />
                             </LinearLayout>
 
@@ -439,14 +439,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/d_bearing"
-                                    style="@style/T.Label" />
+                                    style="@style/TextLabel" />
 
                                 <TextView
                                     android:id="@+id/tv_d_bearing"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    style="@style/T.Value"
+                                    style="@style/TextValue"
                                     tools:text="42° 东北" />
                             </LinearLayout>
                         </LinearLayout>
@@ -497,7 +497,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/link_title"
-                                style="@style/T.Section" />
+                                style="@style/TextSection" />
 
                             <TextView
                                 android:id="@+id/tv_link_mode"
@@ -525,14 +525,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="—"
-                                    style="@style/T.Value" />
+                                    style="@style/TextValue" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
                                     android:text="@string/link_rate_unit"
-                                    style="@style/T.Label" />
+                                    style="@style/TextLabel" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -546,14 +546,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="—"
-                                    style="@style/T.Value" />
+                                    style="@style/TextValue" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
                                     android:text="@string/link_rtt_unit"
-                                    style="@style/T.Label" />
+                                    style="@style/TextLabel" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -567,14 +567,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    style="@style/T.Value" />
+                                    style="@style/TextValue" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
                                     android:text="@string/link_pkts_unit"
-                                    style="@style/T.Label" />
+                                    style="@style/TextLabel" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -620,7 +620,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/verify_title"
-                            style="@style/T.Section" />
+                            style="@style/TextSection" />
 
                         <TextView
                             android:id="@+id/tv_verify_injected"
@@ -681,7 +681,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/log_title"
-                            style="@style/T.Section" />
+                            style="@style/TextSection" />
 
                         <TextView
                             android:id="@+id/tv_log"
@@ -714,14 +714,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
                     android:text="@string/page_sat_title"
-                    style="@style/T.Title" />
+                    style="@style/TextTitle" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/page_sat_subtitle"
-                    style="@style/T.Label" />
+                    style="@style/TextLabel" />
 
                 <!-- 天空图 -->
                 <com.google.android.material.card.MaterialCardView
@@ -751,7 +751,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/sat_title"
-                                style="@style/T.Section" />
+                                style="@style/TextSection" />
 
                             <TextView
                                 android:id="@+id/tv_sat_summary"
@@ -809,7 +809,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/probe_title"
-                                style="@style/T.Section" />
+                                style="@style/TextSection" />
 
                             <TextView
                                 android:id="@+id/tv_probe_result"
@@ -846,14 +846,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
                     android:text="@string/page_settings_title"
-                    style="@style/T.Title" />
+                    style="@style/TextTitle" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/page_settings_subtitle"
-                    style="@style/T.Label" />
+                    style="@style/TextLabel" />
 
                 <!-- 连接设置 -->
                 <com.google.android.material.card.MaterialCardView
@@ -876,14 +876,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/connection_title"
-                            style="@style/T.Section" />
+                            style="@style/TextSection" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="14dp"
                             android:text="@string/mode_title"
-                            style="@style/T.Label" />
+                            style="@style/TextLabel" />
 
                         <com.google.android.material.button.MaterialButtonToggleGroup
                             android:id="@+id/group_mode"
@@ -1015,14 +1015,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/rate_title"
-                            style="@style/T.Section" />
+                            style="@style/TextSection" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="14dp"
                             android:text="@string/rate_sender_label"
-                            style="@style/T.Label" />
+                            style="@style/TextLabel" />
 
                         <com.google.android.material.button.MaterialButtonToggleGroup
                             android:id="@+id/group_rate"
@@ -1094,7 +1094,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="14dp"
                             android:text="@string/rate_receiver_label"
-                            style="@style/T.Label" />
+                            style="@style/TextLabel" />
 
                         <com.google.android.material.button.MaterialButtonToggleGroup
                             android:id="@+id/group_inject"
@@ -1187,7 +1187,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/check_title"
-                                style="@style/T.Section" />
+                                style="@style/TextSection" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btn_recheck"
