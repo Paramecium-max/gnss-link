@@ -399,3 +399,11 @@ Coordinates are **WGS-84**, passed through as-is, no coordinate system conversio
 - [ ] Track replay: record a trajectory on A, replay it on B along the timeline
 - [ ] Dead reckoning: receiver short-term extrapolation by `spd`/`brg` for smoother weak-network experience
 - [ ] Optional AES-encrypted room code, preventing same-subnet packet forgery
+
+## License
+
+This project is released under the [Name Attribution License 1.0 (NAL-1.0)](./LICENSE): any use is permitted, including commercial use, but any use, modification or distribution of this code **must visibly credit the original author and source** in your project:
+
+> Part of this work is based on GNSS Link (https://github.com/zhaokelei/gnss-link) by zhaokelei, used under the NAL-1.0 Name Attribution License.
+
+This project was redesigned based on [wxip/gnsslink](https://github.com/wxip/gnsslink); this license covers only the original work in this project.

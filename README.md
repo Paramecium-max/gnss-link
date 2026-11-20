@@ -403,3 +403,11 @@ adb shell dumpsys location | grep -i "satellites"
 - [ ] 轨迹回放：A 端录一段轨迹，B 端按时间轴重放
 - [ ] 断点补偿：接收端按 `spd`/`brg` 做短时外推，弱网下更平滑
 - [ ] 可选 AES 加密房间码，防止同网段抓包伪造
+
+## 许可
+
+本项目采用 [署名许可协议 1.0（NAL-1.0）](./LICENSE)：允许任何用途（含商用），但使用、修改或分发本项目代码时，**必须在你的项目中显著标注原作者与出处**：
+
+> 本产品部分代码来自 GNSS Link (https://github.com/zhaokelei/gnss-link)，作者 zhaokelei，依据 NAL-1.0 署名许可协议使用。
+
+本项目基于 [wxip/gnsslink](https://github.com/wxip/gnsslink) 重做，本协议仅覆盖本项目原创部分。
